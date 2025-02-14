@@ -69,7 +69,9 @@ const userRegister = asyncHandler(async (req, res) => {
     newUser.email,
   );
 
-  setAuthCookies(res, accessToken, refreshToken);
+  if (accessToken && refreshToken) {
+    setAuthCookies(res, accessToken, refreshToken);
+  }
 
   const userResponse = newUser.toObject();
   delete userResponse.password;

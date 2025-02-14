@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
 
 const generateUsername = async (name) => {
-  const specialChars = ["!", "@", "#", "$", "%", "&", "*"];
+  const specialChars = ["!", "#", "$", "%", "&", "*"];
   const baseUsername = name.toLowerCase().replace(/ /g, "-");
 
   let usernameVariants = [];
