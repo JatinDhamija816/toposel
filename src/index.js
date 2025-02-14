@@ -1,18 +1,23 @@
-import app from "./app.js";
 import dotenv from "dotenv";
-import connectDB from "./db/db.js";
-
 dotenv.config();
 
-function startServer() {
+import app from "./app.js";
+import connectDB from "./db/db.js";
+
+async function startServer() {
   const PORT = process.env.PORT || 3000;
 
-  app.listen(PORT, async () => {
-    console.log(
-      `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`,
-    );
+  try {
     await connectDB();
-  });
+    app.listen(PORT, () => {
+      console.log(
+        `Server running in ${process.env.NODE_ENV || "development"} mode on port ${PORT}`,
+      );
+    });
+  } catch (error) {
+    console.error("❌ Database connection failed:", error.message);
+    process.exit(1);
+  }
 }
 
 startServer();
